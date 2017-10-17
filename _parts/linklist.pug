@@ -1,0 +1,33 @@
+b:widget#LinkList1(locked='false' title='勉強用リンク集' type='LinkList')
+  b:widget-settings
+    b:widget-setting(name='sorting') NONE
+    b:widget-setting(name='text-0') Table of Laplace and Z Transforms
+    b:widget-setting(name='text-1') 自動車エンジンの制御開発
+    b:widget-setting(name='text-2') The Unit Step Response
+    b:widget-setting(name='text-3') 制御の基本 PID制御パラメータの調整法とRTMによる開発について
+    b:widget-setting(name='text-4') プログラムでデジタルフィルタ
+    b:widget-setting(name='text-5') Lattice phase equaliser - Wikipedia
+    b:widget-setting(name='text-6') ラプラス変換とその使い方5&#65308;過渡現象編4&#65310;いろいろな波形の過渡現象
+    b:widget-setting(name='text-7') <![CDATA[Signal Acquisition & Filtering on Simple Embedded Systems]]>
+    b:widget-setting(name='text-8') Visualizing the distribution of a dataset
+  
+    b:widget-setting(name='link-0')       http://lpsa.swarthmore.edu/LaplaceZTable/LaplaceZFuncTable.html
+    b:widget-setting(name='link-1') http://www.me.sophia.ac.jp/ctrl/staff/1.pdf
+    b:widget-setting(name='link-2')       http://lpsa.swarthmore.edu/Transient/TransInputs/TransStep.html
+    b:widget-setting(name='link-3')       http://tech.mid-japan.com/blog/2014/07/10/learn-pid-control-and-rtm/
+    b:widget-setting(name='link-4') http://bluefish.orz.hm/sdoc/fftw_digifil.html
+    b:widget-setting(name='link-5') https://en.wikipedia.org/wiki/Lattice_phase_equaliser
+    b:widget-setting(name='link-6') http://www.jeea.or.jp/course/contents/01138/
+    b:widget-setting(name='link-7')       http://tooling-up.blogspot.jp/2013/06/signal-acquisition-filtering-on-simple.html
+    b:widget-setting(name='link-8')       https://stanford.edu/~mwaskom/software/seaborn/tutorial/distributions.html
+  
+  b:includable#main
+  b:if(cond='data:title != &quot;&quot;')
+    h2 <data:title/>
+  div.widget-content
+    ul
+      b:loop(values='data:links', var='link')
+        li
+          a(expr:href='data:link.target') <data:link.name/>
+    b:include(name='quickedit')/
+  

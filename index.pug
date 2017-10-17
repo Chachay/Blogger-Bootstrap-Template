@@ -1,0 +1,122 @@
+doctype xml
+doctype html
+html(b:version='2', class='v2',b:layoutsVersion='3',b:defaultwidgetversion='2',
+   expr:dir='data:blog.languageDirection',
+   xmlns='http://www.w3.org/1999/xhtml',
+   xmlns:b='http://www.google.com/2005/gml/b',
+   xmlns:data='http://www.google.com/2005/gml/data',
+   xmlns:expr='http://www.google.com/2005/gml/expr')
+  head
+    meta(charset='utf-8')/
+    meta(content='width=device-width,initial-scale=1.0', name='viewport')/
+    
+    meta(content='blogger', name='generator')/
+    meta(content='Author', name='authhor')/
+
+    b:if(cond='data:blog.pageType == "index"')
+      b:if(cond='data:blog.metaDescription')
+        meta(expr:content='data:blog.metaDescription', name='description')/
+
+      title <data:blog.pageTitle/>
+      b:else/
+      b:if(cond='data:blog.pageType != "error_page"')
+        title <data:blog.pageName/> - <data:blog.title/>
+  
+    b:if(cond='data:blog.pageType == "error_page"')
+      title Page Not Found - <data:blog.title/>
+    
+
+    //- css
+    include _css/skin.pug 
+      
+    //- Load bootstrap
+    include _includes/bootstrap4.pug
+    include _includes/webfonts.pug
+    
+    //- metatag
+    include _parts/twittercard_partA.pug
+    
+    b:include(data='blog', name='google-analytics')/
+  body
+    .container-fluid
+      .row.content
+        .col-sm-3.sidenav
+          h1(id='sitetitle') <data:blog.title/>
+          //- Widgets
+          b:section#sidebar-left-1
+            //- Profile
+            include _parts/profile.pug
+            //- Popular article widget
+            include _parts/popular_article.pug
+            //- Blog archive Widget
+            include _parts/archive.pug
+            //- Google Adsense Widget
+            include _parts/adsense-side.pug
+          
+        .col-sm-9
+          b:section.main#main(name='Main',showaddelement='yes')
+            //- Main
+            b:widget#Blog1(locked='true',title='Blog Posts', type='Blog',version='1')
+              b:widget-settings
+                b:widget-setting(name='showDateHeader') false
+                b:widget-setting(name='showShareButtons') false
+                b:widget-setting(name='showLabels') true
+                b:widget-setting(name='showTimeStamp') false
+                b:widget-setting(name='postsPerAd') 1
+                b:widget-setting(name='showBacklinks') false
+                b:widget-setting(name='showInlineAds') false
+                b:widget-setting(name='showReactions') false
+                b:widget-setting(name='showCommentLink') true
+                b:widget-setting(name='authorLabel') Posted by
+                b:widget-setting(name='showAuthor') false
+                b:widget-setting(name='showAuthorProfile') false
+                b:widget-setting(name='showLocation') false
+
+                b:widget-setting(name='style.textcolor') #333333
+                b:widget-setting(name='style.urlcolor') #997755
+                b:widget-setting(name='style.linkcolor') #cc3300
+                b:widget-setting(name='style.bgcolor') #c0a154
+                b:widget-setting(name='style.bordercolor') #c0a154
+                b:widget-setting(name='style.unittype') TextAndImage
+                b:widget-setting(name='style.layout') 1x1
+
+              b:includable#main(var='top')
+                b:if(cond='!data:mobile')
+                  // posts
+                  .blog-posts.hfeed
+                    b:include(data='top', name='status-message')/
+                    b:loop(values='data:posts', var='post')
+                      b:if(cond='data:post.isDateStart and not data:post.isFirstPost')
+                        | &lt;/div&gt;&lt;/div&gt;
+
+                      b:if(cond='data:post.isDateStart')
+                        | &lt;div class="date-outer"&gt;
+                        | &lt;div class="date-posts"&gt;
+
+                      .post-outer
+                        b:include(data='post', name='post')/
+                        b:include(cond='data:blog.pageType in {"static_page","item"}',
+                            data='post', name='comment_picker')/
+          
+                      // Ad
+                      b:if(cond='data:post.includeAd')
+                      .inline-ad <data:adCode/>
+
+                    b:if(cond='data:numPosts != 0')
+                      | &lt;/div&gt;&lt;/div&gt;
+                    
+                    b:include(name='nextprev')/
+
+              include _post/post.pug
+
+
+            //- Footer Widget
+            b:widget#Attribution1(locked='false', title='', type='Attribution')
+              b:widget-settings
+                b:widget-setting(name='copyright') Template by <a href="https://github.com/Chachay">Chachay</a> 
+              b:includable#main
+                .widget-content(style='text-align:center;')
+                  b:if(cond='data:attribution != ""') <data:attribution/>
+
+                b:include(name='quickedit')/
+

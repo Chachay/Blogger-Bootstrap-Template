@@ -1,0 +1,45 @@
+b:widget#PopularPosts1(
+    locked='false',
+    title='注目の記事',
+    type='PopularPosts',
+    version='1')
+    
+    b:widget-settings
+        b:widget-setting(name='numItemsToShow') 3
+        b:widget-setting(name='showThumbnails') true
+        b:widget-setting(name='showSnippets') false
+        b:widget-setting(name='timeRange') ALL_TIME
+
+    b:includable#main
+        b:if(cond='data:title != &quot;&quot;')
+            h2 <data:title/>
+                
+        .widget-content.popular-posts
+            ul
+                b:loop(values='data:posts', var='post')
+                    li
+                      b:if(cond='!data:showThumbnails')
+                        b:if(cond='!data:showSnippets')
+                          // (1) No snippet/thumbnail
+                          a(expr:href='data:post.href') <data:post.title/>
+                          <b:else/>
+                          // (2) Show only snippets
+                          .item-title: a(expr:href='data:post.href') <data:post.title/>
+                          .item-snippet <data:post.snippet/>
+                        <b:else/>
+                        // (3) Show only thumbnails or (4) Snippets and thumbnails. 
+                        div(expr:class='data:showSnippets ? &quot;item-content&quot; : &quot;item-thumbnail-only&quot;')
+                          b:if(cond='data:post.featuredImage.isResizable or data:post.thumbnail')
+                            .item-thumbnail
+                              a(expr:href='data:post.href', target='_blank')
+                                b:with(value='data:post.featuredImage.isResizable ? resizeImage(data:post.featuredImage, 72, &quot;1:1&quot;) : data:post.thumbnail',
+                                       var='image')
+                                  img(alt='', border='0', expr:src='data:image')/
+                          .item-title
+                            a(expr:href='data:post.href') <data:post.title/>
+                          
+                          b:if(cond='data:showSnippets')
+                            .item-snippet <data:post.snippet/>
+                        div(style='clear: both;')/
+
+            b:include(name='quickedit')/

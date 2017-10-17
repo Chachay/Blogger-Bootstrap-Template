@@ -1,0 +1,149 @@
+b:includable#post(var='post')
+  .post.hentry.uncustomized-post-template(itemprop='blogPost',itemscope='itemscope',itemtype='http://schema.org/BlogPosting')
+    b:if(cond='data:post.firstImageUrl')
+        meta(expr:content='data:post.firstImageUrl', itemprop='image_url')/
+
+    meta(expr:content='data:blog.blogId', itemprop='blogId')/
+    meta(expr:content='data:post.id' itemprop='postId')/
+
+    //- Twitter Card Part B
+    b:if(cond='data:blog.pageType != "index"')
+      b:if(cond='data:blog.metaDescription == ""')
+        meta(expr:content='data:post.snippet', property='og:description')/
+        <b:else/>
+        meta(expr:content='data:blog.metaDescription', property='og:description')/
+
+    //- Blogpot main
+    a(expr:name='data:post.id')/
+
+    b:if(cond='data:post.title')
+      h3.post-title.entry-title(itemprop='name')
+        b:if(cond='data:post.link or (data:post.url and data:blog.url != data:post.url)')
+          a(expr:href='data:post.link ? data:post.link : data:post.url') <data:post.title/>
+          <b:else/>
+          <data:post.title/>
+
+    .post-header
+      .post-header-line-1
+        .datestyle Posted on <data:post.timestamp/>
+        //- カテゴリタグ
+        .post-labels
+          b:if(cond='data:top.showPostLabels and data:post.labels')
+            b:loop(values='data:post.labels', var='label')
+                a(expr:href='data:label.url', rel='tag') <data:label.name/>
+                
+                b:if(cond='not data:label.isLast') ,
+                
+        // hatena bookmark
+        a.hatena-bookmark-button(
+            expr:href='"http://b.hatena.ne.jp/entry/"+data:post.url',
+            data-hatena-bookmark-layout="vertical-normal",
+            data-hatena-bookmark-lang="ja",
+            title="このエントリーをはてなブックマークに追加")
+            img(src="https://b.st-hatena.com/images/entry-button/button-only@2x.png",
+                alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;")/
+        script(type="text/javascript",
+               src="https://b.st-hatena.com/js/bookmark_button.js",
+               charset="utf-8", async="async")
+
+        // twitter share 
+        a.twitter-share-button(
+            href="https://twitter.com/share",
+            data-via="chachay") Tweet
+        script.
+            !function(d,s,id){
+                var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+    
+        // Pocket Link
+        a.pocket-btn(
+            data-pocket-label="pocket",
+            data-pocket-count="vertical",
+            data-lang="en")
+        script(type="text/javascript").
+            !function(d,i){
+                if(!d.getElementById(i)){
+                    var j=d.createElement("script");
+                    j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";
+                    var w=d.getElementById(i);d.body.appendChild(j);
+                }
+            }(document,"pocket-btn-js");
+
+    // Then use the post body as the schema.org description, for good G+/FB snippeting.
+    .post-body.entry-content(
+        expr:id='&quot;post-body-&quot; + data:post.id',
+        expr:itemprop='(data:blog.metaDescription ? &quot;&quot; : &quot;description &quot;) + &quot;articleBody&quot;')
+      <data:post.body/>
+      div(style='clear: both;')/ 
+
+      b:if(cond='data:post.hasJumpLink')
+        .jump-link
+          a(expr:href='data:post.url + &quot;#more&quot;',
+            expr:title='data:post.title')
+              <data:post.jumpText/>
+      .post-footer
+        .post-fotter-line.post-footer-line-1
+          b:if(cond='data:top.showAuthor')
+            span.post-author.vcard
+              <data:top.authorLabel/>
+              b:if(cond='data:post.authorProfileUrl')
+                span.fn(itemprop='author', itemscope='itemscope', itemtype='http://schema.org/Person')
+                  meta(expr:content='data:post.authorProfileUrl', itemprop='url')/
+                  a.g-profile(expr:href='data:post.authorProfileUrl', rel='author', title='author profile')
+                    span(itemprop='name') <data:post.author/>
+                <b:else/>
+                span.fn(itemprop='author', itemscope='itemscope', itemtype='http://schema.org/Person')
+                  span(itemprop='name') <data:post.author/>
+
+          b:if(cond='data:top.showTimestamp')
+            span.post-timestamp
+              <data:top.timestampLabel/>
+              b:if(cond='data:post.url')
+                meta(expr:content='data:post.url.canonical', itemprop='url')/
+                a.timestamp-line(expr:href='data:post.url',
+                                 rel='bookmark', title='permanent link')
+                  abbr.published(expr:title='data:post.timestampISO8601', itemprop='datePublished') <data:post.timestamp/>
+
+          b:if(cond='data:top.showReactions')
+            span.reaction-buttons
+              table(border='0', cellpadding='0', cellspacing='0', width='100%')
+                tr
+                  td.reactions-label-cell(nowrap='nowrap', valign='top', width='1%')
+                    span.reactions-label <data:top.reactionsLabel/>
+                    | &#160;
+                  td
+                    iframe.reactions-iframe(allowtransparency='true',
+                                            expr:src='data:post.reactionsUrl',
+                                            frameborder='0',
+                                            name='reactions',
+                                            scrolling='no')/
+          .post-comment-link
+            b:include(cond='data:blog.pageType not in {&quot;item&quot;,&quot;static_page&quot;} and data:post.allowComments',
+                      data='post', name='comment_count_picker')/
+
+          //- backlinks
+          span.post-backlinks.post-comment-link.btn-group
+            span.btn.btn-default
+              b:if(cond='data:blog.pageType not in {&quot;item&quot;,&quot;static_page&quot;} and data:post.showBacklinks')
+                a.comment-link(expr:href='data:post.url + &quot;#links&quot;') <data:top.backlinkLabel/>
+
+          span.post-icons
+            //- email post links
+            b:if(cond='data:post.emailPostUrl')
+              span.item-action
+                a(expr:href='data:post.emailPostUrl', expr:title='data:top.emailPostMsg')
+                  img.icon-action(alt='',height='13', width='18',
+                                  src='https://resources.blogblog.com/img/icon18_email.gif')/
+            //- quickedit pencil
+            b:include(data='post', name='postQuickEdit')/
+
+          //- share buttons
+          .post-share-buttons.goog-inline-block
+            b:include(cond='data:post.sharePostUrl', data='post', name='shareButtons')/
+
+        .post-footer-line.post-footer-line-2
+          span.post-location
+            b:if(cond='data:top.showLocation and data:post.location')
+              <data:postLocationLabel/>
+              a(expr:href='data:post.location.mapsUrl', target='_blank') <data:post.location.name/>

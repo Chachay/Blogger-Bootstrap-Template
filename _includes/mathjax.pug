@@ -1,0 +1,14 @@
+script(src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+       type='text/javascript').
+    MathJax.Hub.Config({
+        HTML: [&quot;input/TeX&quot;,&quot;output/HTML-CSS&quot;],
+        TeX: { extensions: [&quot;AMSmath.js&quot;,&quot;AMSsymbols.js&quot;], 
+              equationNumbers: { autoNumber: &quot;AMS&quot; } },
+        extensions: [&quot;tex2jax.js&quot;],
+        jax: [&quot;input/TeX&quot;,&quot;output/HTML-CSS&quot;],
+        tex2jax: { inlineMath: [ [&#39;$&#39;,&#39;$&#39;], [&quot;\\(&quot;,&quot;\\)&quot;] ],
+                                  displayMath: [ [&#39;$$&#39;,&#39;$$&#39;], [&quot;\\[&quot;,&quot;\\]&quot;] ],
+                                  processEscapes: true },
+                                  &quot;HTML-CSS&quot;: { availableFonts: [&quot;TeX&quot;],
+                                linebreaks: { automatic: true } }
+                                });

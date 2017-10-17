@@ -1,0 +1,24 @@
+meta(name='twitter:card',content='summary')/
+meta(name='twitter:site' content='@twitter')/
+
+b:if(cond='data:blog.pageType == "index"')
+  meta(property='og:title',
+       expr:content='data:blog.title')/
+  meta(property='og:image',
+       content='dummy')/
+       
+  b:if(cond='data:blog.metaDescription')
+    meta(name='og:description'
+        expr:content='data:blog.metaDescription')/
+    b:else/
+    meta(name='og:description',
+        expr:content='" "+data:post.snippet')/
+  b:else/
+  meta(name='og:title',
+       expr:content='data:blog.pageName')/
+  meta(name='og:image',
+       expr:content='data:blog.postImageUrl')/
+
+meta(name='twitter:url', expr:content='data:blog.url')/
+meta(name='og:site_name', expr:content='data:blog.title')/
+meta(name='og:type', content='article')/

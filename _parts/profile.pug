@@ -1,0 +1,47 @@
+b:widget#Profile1(locked='false', title='自己紹介', type='Profile')
+  b:widget-settings
+    b:widget-setting(name='showaboutme') true
+    b:widget-setting(name='showlocation') false
+
+  b:includable#main
+    b:if(cond='data:title != ""')
+      h2 <data:title/>
+
+    .widget-content
+      b:if(cond='data:team')
+        // team blog profile
+        ul
+          b:loop(values='data:authors', var='i')
+            li
+              a.profile-name-link.g-profile(
+                expr:href='data:i.userUrl',
+                expr:style='"background-image: url(" + data:i.profileLogo + ");"')
+                | <data:i.display-name/>
+
+        <b:else/> 
+        // normal blog profile
+        b:if(cond='data:authorPhoto.image != ""')
+          a(expr:href='data:userUrl')
+            img.profile-img(expr:alt='data:messages.myPhoto',
+                            expr:height='data:photo.height',
+                            expr:src='data:authorPhoto.image',
+                            expr:width='data:photo.width')/
+
+          dl.profile-datablock
+            dt.profile-data
+              a.profile-name-link.g-profile(expr:href='data:userUrl',
+                                            expr:style='"background-image: url(" + data:profileLogo + ");"',
+                                            rel='author')
+              | <data:displayname/>
+              
+              b:if(cond='data:hasgoogleprofile')
+                br/
+                .g-follow(data-annotation='bubble', data-height='20', expr:data-href='data:userUrl')/
+
+            b:if(cond='data:showlocation')
+              dd.profile-data <data:location/>
+            
+            b:if(cond='data:aboutme != ""')
+              dd.profile-textblock <data:aboutme/>
+          a.profile-link(expr:href='data:userUrl', rel='author') <data:viewProfileMsg/>
+      b:include(name='quickedit')/

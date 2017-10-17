@@ -1,0 +1,14 @@
+b:widget#AdSense1(locked='false', title='', type='AdSense')
+    b:widget-settings
+        b:widget-setting(name='style.bgcolor') #ffffff
+        b:widget-setting(name='style.textcolor') #000000
+        b:widget-setting(name='style.layout') 1x1
+        b:widget-setting(name='style.bordercolor') #ffffff
+        b:widget-setting(name='style.urlcolor') #008000
+        b:widget-setting(name='style.linkcolor') #0000ff
+        b:widget-setting(name='style.unittype') TextAndImage
+        
+    b:includable#main
+        .widget-content 
+            data:adCode/
+            b:include(name='quickedit')/

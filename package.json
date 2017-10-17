@@ -1,0 +1,23 @@
+{
+  "name": "blogger_template",
+  "version": "0.3.0",
+  "description": "Blogger Template with Pug and Bootstrap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Blogger",
+    "Bootstrap",
+    "Pug"
+  ],
+  "author": "Chachay",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-pug": "^3.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "pug": "^2.0.0-rc.4"
+  }
+}

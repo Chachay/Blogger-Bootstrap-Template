@@ -1,0 +1,111 @@
+body,html{
+    width:100%;
+    height:100%
+}
+.container{
+    width:100%;
+    height:100%
+    margin:0;
+}
+.row.content {height: 100%}
+.entry-content h2{
+    padding-top:25px;
+}
+.entry-content h3{
+    padding-top:15px;
+}
+
+.post-header{
+    padding:20px 0;
+}
+
+.post-title{
+    padding:20px 0;
+}
+
+.sidenav {
+  padding:20px 0;
+  background-color: #333;
+  color:#fff;
+  text-align:center;
+}
+.sidenav div{
+    padding:20px;
+    margin:0;
+}    
+.sidenav img{
+    border-radius:50%;
+    max-width:140px;
+}
+.sidenav div.PopularPosts div{
+    padding:2px 0px;
+}
+.sidenav div.BlogArchive div{
+    padding:2px 0px;
+} 
+.sidenav div.widget h2{
+    font-size:25px;
+}
+.sidenav div.popular-posts li{
+    list-style:none;
+    text-align: left;
+    padding:.1em 0;
+}
+.sidenav div a,a:active{
+    color:#fff;
+}
+.sidenav div a:hover{
+    color:#d01040
+}
+.sidenav div.popular-posts ul li img{
+    border-radius:0%;
+}
+.date-outer{
+    margin-bottom:50px;
+}
+.pocket-btn {
+    display: inline-block;
+    vertical-align: top;
+}
+#sidebar-left-1{
+    padding:0px;
+}
+
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}
+.datestyle{
+    color:#999;
+}
+h1#sitetitle{font-size:30px;}
+ul.social{
+    list-style-type:none;
+    margin:0;
+    margin-top:20px;
+    margin-bottom:20px;
+    padding:0;
+    font-size:1.4em;
+}
+ul.social a{
+    color:#fff;
+    display:inline-block;
+    width:36px;height:36px;
+    border-radius:100%;
+    text-align:center;
+    line-height:36px;
+    font-size:1.0em;
+}
+ul.social a i{
+    font-size:1.2em;
+}
+ul.social a:hover{
+    z-index:2;
+    -webkit-transform:translateY(-5px);
+    transform:translateY(-5px)
+}
+ul.social li{display:inline}
+ul.social a.sc-twitter{background-color:#4da7de}
+ul.social a.sc-github,ul.social a.sc-github-alt{background-color:#111010}
+ul.social a.sc-qiita{font-size:15px;}

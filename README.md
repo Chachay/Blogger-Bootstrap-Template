@@ -1,2 +1,23 @@
-# Blogger-Bootstrap-Template
-Blogger template with Bootstrap 4 alpha by Pug (Jade) engine 
+# Blogger Template with Bootstrap
+
+Blogger template with Bootstrap by Pug template engine
+
+## Requirement
+* Node.js
+
+## Gettring Sarted
+
+1. Install npm packages
+
+```
+npm install
+```
+
+2. Compile templates
+
+```
+gulp
+```
+
+## License
+MIT
