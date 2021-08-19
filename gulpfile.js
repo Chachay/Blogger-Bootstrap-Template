@@ -1,7 +1,7 @@
-var gulp = require('gulp'),
-    pug = require('gulp-pug'),
-    rename = require('gulp-rename'),
-    replace = require('gulp-replace');
+const gulp = require('gulp')
+const pug = require('gulp-pug')
+const rename = require('gulp-rename')
+const replace = require('gulp-replace')
 
 gulp.task('default', () => {
     return gulp.src(['./*.pug'], { base: './' })

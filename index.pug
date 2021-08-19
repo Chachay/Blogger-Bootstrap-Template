@@ -11,7 +11,7 @@ html(b:version='2', class='v2',b:layoutsVersion='3',b:defaultwidgetversion='2',
     meta(content='width=device-width, initial-scale=1', name='viewport')/
 
     meta(content='blogger', name='generator')/
-    meta(content='Author', name='authhor')/
+    meta(content='chachay', name='authhor')/
 
     b:if(cond='data:blog.pageType == "index"')
       b:if(cond='data:blog.metaDescription')
@@ -38,10 +38,15 @@ html(b:version='2', class='v2',b:layoutsVersion='3',b:defaultwidgetversion='2',
 
     b:include(data='blog', name='google-analytics')/
   body
-    .container-fluid
+    .container.ml-0
       .row.content
-        .col-sm-3.sidenav
-          h1(id='sitetitle') <data:blog.title/>
+        .col-lg-3.sidenav
+          b:if(cond='data:blog.pageType == "index"')
+            h1#sitetitle <data:blog.title/>
+            b:else/
+            b:if(cond='data:blog.pageType != "error_page"')
+              div#sitetitle <data:blog.title/>
+
           //- Widgets
           b:section#sidebar-left-1
             //- Profile
@@ -50,10 +55,9 @@ html(b:version='2', class='v2',b:layoutsVersion='3',b:defaultwidgetversion='2',
             include _parts/popular_article.pug
             //- Blog archive Widget
             include _parts/archive.pug
-            //- Google Adsense Widget
-            include _parts/adsense-side.pug
 
-        .col-sm-9
+          //- .hidden-sm-down
+        .col-lg-9
           b:section.main#main(name='Main',showaddelement='yes')
             //- Main
             b:widget#Blog1(locked='true',title='Blog Posts', type='Blog',version='1')

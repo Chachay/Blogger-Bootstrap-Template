@@ -1,12 +1,14 @@
 meta(name='twitter:card',content='summary')/
-meta(name='twitter:site' content='@twitter')/
+//- change content to your account name
+meta(name='twitter:site' content='@chachay')/
 
 b:if(cond='data:blog.pageType == "index"')
   meta(property='og:title',
        expr:content='data:blog.title')/
+  //- change content to your image from dummy
   meta(property='og:image',
        content='dummy')/
-       
+
   b:if(cond='data:blog.metaDescription')
     meta(name='og:description'
         expr:content='data:blog.metaDescription')/
